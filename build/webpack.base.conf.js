@@ -56,6 +56,10 @@ module.exports = {
         exclude: /vue-devtools|node_modules/
       },
       {
+        test: /\.css$/,
+        loaders: ['vue-style', 'css']
+      },
+      {
         test: /\.json$/,
         loader: 'json'
       },

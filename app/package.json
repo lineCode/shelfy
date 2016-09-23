@@ -1,11 +1,12 @@
 {
-  "name": "electron-boilerplate-vue",
-  "productName": "Electron Boilerplate Vue",
-  "version": "0.1.0",
-  "description": "An Electron + Vue.js project.",
-  "author": "Brad Stewart <me@bradstewart.co>",
+  "name": "shelfy",
+  "productName": "shelfy",
+  "version": "0.0.1",
+  "description": "",
+  "author": "motch0214 <motch0214@gmail.com>",
+  "license": "MIT",
   "main": "background.js",
   "dependencies": {
-    "jquery": "2.2.2"
+    "electron-json-storage": "^2.0.0"
   }
 }
