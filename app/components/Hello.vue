@@ -1,23 +1,31 @@
 <template lang="pug">
 .hello
-  h1 {{ msg }}
-  span from {{ appName }} running on {{ platform }}
+  h1 {{ msg }} x {{ count }}
+  ui-button(@click="increment") INC
+  ui-button(@click="decrement") DEC
+  p
+    a(v-link="'/foo'") Go to Foo
+    a(v-link="'/bar'") Go to Bar
 </template>
 
 <script>
-import { remote } from 'electron'
-import os from 'os'
+import { increment, decrement } from '../vuex/actions'
+import { count } from '../vuex/getters'
 
 export default {
   data() {
     return {
-      platform: os.platform(),
-      appName: remote.app.getName(),
-      // note: changing this line won't causes changes
-      // with hot-reload because the reloaded component
-      // preserves its current state and we are modifying
-      // its initial state.
       msg: 'Hello World!'
+    }
+  },
+
+  vuex: {
+    actions: {
+      increment,
+      decrement
+    },
+    getters: {
+      count
     }
   }
 }
