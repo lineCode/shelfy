@@ -2,24 +2,28 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Keen from 'keen-ui'
 import 'keen-ui/dist/keen-ui.css'
+
 import App from './components/app'
+import HeroUnit from './components/hero-unit'
+import Shelf from './components/shelf'
+import './styles/main'
 
 Vue.use(VueRouter)
 Vue.use(Keen)
-
-const Foo = { template: '<div>foo</div>' }
-const Bar = { template: '<div>bar</div>' }
 
 const router = new VueRouter({
   hashbang: false
 })
 
 router.map({
-  '/foo': {
-    component: Foo
+  '/': {
+    component: HeroUnit
   },
-  '/bar': {
-    component: Bar
+  '/:shelfId': {
+    component: Shelf
+  },
+  '/:shelfId/*relativePath': {
+    component: Shelf
   }
 })
 

@@ -5,18 +5,23 @@ import types from './mutation-types'
 Vue.use(Vuex)
 
 const state = {
-  count: 0
+  shelfList: [],
+  currentShelf: null,
+  relativePath: ''
 }
 
 /* eslint-disable no-shadow, no-param-reassign */
 const mutations = {
-
-  [types.INCREMENT](state) {
-    state.count += 1
+  [types.UPDATE_SHELF_LIST](state, shelfList) {
+    state.shelfList = shelfList;
   },
 
-  [types.DECREMENT](state) {
-    state.count -= 1
+  [types.CHANGE_SHELF](state, shelf) {
+    state.currentShelf = shelf;
+  },
+
+  [types.CHANGE_RELATIVE_PATH](state, relativePath) {
+    state.relativePath = relativePath;
   }
 }
 
