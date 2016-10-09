@@ -5,6 +5,8 @@
     side-menu
   .page
     ui-toolbar.toolbar(:title="title" @nav-icon-clicked="toggleSidebar")
+      .actions(slot="actions")
+        ui-icon-button(:disabled="relativePath.length === 0" icon="eject" type="flat" @click="back")
     .container
       router-view
 </template>
@@ -29,10 +31,15 @@ export default {
     }
   },
 
+  created() {
+    this.loadShelfList()
+      .then(() => this.changeRoute(this.$route))
+      .catch(() => this.$router.go('/'));
+  },
+
   ready() {
-    this.loadShelfList(this.$route);
-    this.$router.afterEach(transition => {
-      this.changeRoute(transition.to);
+    this.$router.afterEach(({ to }) => {
+      this.changeRoute(to);
       this.showSidebar = false;
     });
   },
@@ -40,6 +47,12 @@ export default {
   methods: {
     toggleSidebar() {
       this.showSidebar = !this.showSidebar;
+    },
+
+    back() {
+      const relative = this.relativePath.split('/').slice(0, -1).join('/');
+      const route = relative ? `/${this.currentShelf.id}/${relative}` : `/${this.currentShelf.id}`;
+      this.$router.go(route);
     }
   },
 
@@ -50,6 +63,8 @@ export default {
     },
 
     getters: {
+      relativePath,
+      currentShelf,
       title: state => {
         if (relativePath(state)) return path.basename(relativePath(state));
         if (currentShelf(state)) return currentShelf(state).name;
@@ -83,6 +98,7 @@ export default {
   position: fixed;
   height: 56px;
   width: 100vw;
+  z-index: $z-index-toolbar;
 }
 
 .sidebar-overlay {

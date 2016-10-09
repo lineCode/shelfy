@@ -1,21 +1,26 @@
 <template lang="pug">
 #shelf
-  h3 {{ absolutePath }}
-  ul
-    li(v-for="f in list")
-      a(v-link="$route.path + '/' + f") {{ f }}
+  image-card(:file="f" v-for="f in files")
 </template>
 
 <script>
 import jetpack from 'fs-jetpack'
 import { absolutePath } from '../vuex/getters'
+import ImageCard from './image-card'
+import ShelfyFile from '../utils/ShelfyFile'
 
 export default {
   name: 'Shelf',
 
+  components: {
+    ImageCard
+  },
+
   computed: {
-    list() {
-      return jetpack.list(this.absolutePath);
+    files() {
+      return jetpack.list(this.absolutePath)
+        .map(name => new ShelfyFile(jetpack.path(this.absolutePath, name), name))
+        .sort(ShelfyFile.compare);
     }
   },
 
@@ -28,7 +33,4 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-#shelf {
-  padding: 16px;
-}
 </style>

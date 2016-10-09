@@ -2,9 +2,9 @@
 #side-menu
   .top
     a.brand(v-link="'/'") shelfy
-    ui-icon-button.add(icon="add" type="flat" color="accent" @click="addNewShelf")
+    ui-icon-button.add(icon="library_add" type="flat" @click="addNewShelf")
   ul.menu
-    a.menu-item(v-for="s in shelfList | orderBy 'name','id'" v-link="'/' + s.id") {{ s.name }}
+    a.menu-item(v-for="s in shelfList | orderBy 'name' 'id'" v-link="'/' + s.id") {{ s.name }}
 </template>
 
 <script>
@@ -19,10 +19,8 @@ export default {
   methods: {
     addNewShelf() {
       this.selectDirectory()
-        .then(directory => {
-          this.pushShelfList(directory);
-          // TODO change route
-        });
+        .then(directory => this.pushShelfList(directory))
+        .then(shelf => this.$router.go(`/${shelf.id}`));
     },
 
     selectDirectory() {
@@ -32,7 +30,7 @@ export default {
           properties: ['openDirectory']
         }, directories => {
           if (directories) resolve(directories[0]);
-          reject(new Error('No folder selected.'));
+          reject('No folder selected.');
         });
       })
     }

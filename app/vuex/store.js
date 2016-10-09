@@ -5,6 +5,7 @@ import types from './mutation-types'
 Vue.use(Vuex)
 
 const state = {
+  route: '',
   shelfList: [],
   currentShelf: null,
   relativePath: ''
@@ -12,6 +13,10 @@ const state = {
 
 /* eslint-disable no-shadow, no-param-reassign */
 const mutations = {
+  [types.CHANGE_ROUTE](state, route) {
+    state.route = route;
+  },
+
   [types.UPDATE_SHELF_LIST](state, shelfList) {
     state.shelfList = shelfList;
   },
