@@ -3,7 +3,7 @@
   .ui.card(v-if="file.isDirectory()")
     a.image(v-link="$route.path + '/' + file.name")
       img(:src="imageData" v-if="loaded")
-      img(src="../assets/file.png" v-else)
+      img(src="../assets/noimage.png" v-else)
     .content
       a.name(v-link="$route.path + '/' + file.name") {{ file.name }}
       .right.floated
@@ -12,7 +12,7 @@
   .ui.card(v-else)
     .image
       img(:src="imageData" v-if="loaded")
-      img(src="../assets/file.png" v-else)
+      img(src="../assets/noimage.png" v-else)
     .content
       .name {{ file.name }}
       .right.floated
@@ -20,7 +20,6 @@
 </template>
 
 <script>
-import jetpack from 'fs-jetpack'
 import { absolutePath } from '../vuex/getters'
 
 export default {
@@ -46,9 +45,9 @@ export default {
   },
 
   created() {
-    jetpack.readAsync(this.file.path, 'buffer')
-      .then(buf => `data:image/jpeg;base64,${buf.toString('base64')}`)
-      .then(data => { this.imageData = data });
+    this.file.imageData()
+      .then(data => { this.imageData = `data:image/jpeg;base64,${data}` })
+      .catch(() => { /* image not found */ });
   },
 
   vuex: {

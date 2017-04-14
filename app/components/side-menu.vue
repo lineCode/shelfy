@@ -20,7 +20,8 @@ export default {
     addNewShelf() {
       this.selectDirectory()
         .then(directory => this.pushShelfList(directory))
-        .then(shelf => this.$router.go(`/${shelf.id}`));
+        .then(shelf => this.$router.go(`/${shelf.id}`))
+        .catch(() => { /* folder not selected */ });
     },
 
     selectDirectory() {
@@ -30,7 +31,7 @@ export default {
           properties: ['openDirectory']
         }, directories => {
           if (directories) resolve(directories[0]);
-          reject('No folder selected.');
+          reject('Folder not selected.');
         });
       })
     }
