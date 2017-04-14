@@ -20,7 +20,7 @@ module.exports = {
     __dirname: false
   },
   resolve: {
-    extensions: ['', '.js', '.vue'],
+    extensions: ['', '.js', '.vue', '.css', '.scss'],
     fallback: [path.join(__dirname, '../node_modules')],
     alias: {
       app: path.resolve(__dirname, '../app')
@@ -58,6 +58,10 @@ module.exports = {
       {
         test: /\.css$/,
         loaders: ['vue-style', 'css']
+      },
+      {
+        test: /\.scss$/,
+        loaders: ['vue-style', 'css', 'sass']
       },
       {
         test: /\.json$/,

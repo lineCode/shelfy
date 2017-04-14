@@ -1,0 +1,18 @@
+$font-stack: Roboto, -apple-system, BlinkMacSystemFont, "Segoe UI", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+
+* {
+  box-sizing: border-box;
+  font-family: inherit;
+}
+
+html,
+body,
+app {
+  max-width: 100vw;
+  margin: 0;
+  padding: 0;
+}
+
+app {
+  font-family: $font-stack;
+}
